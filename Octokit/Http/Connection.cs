@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Octokit.Internal;
@@ -661,7 +662,13 @@ namespace Octokit
                 Environment.Is64BitOperatingSystem ? "amd64" : "x86",
 #endif
                 CultureInfo.CurrentCulture.Name,
-                AssemblyVersionInformation.Version);
+#if NETFX_CORE
+                Assembly.GetEntryAssembly().FullName);
+#else
+            AssemblyVersionInformation.Version);
+#endif
+
+
         }
     }
 }

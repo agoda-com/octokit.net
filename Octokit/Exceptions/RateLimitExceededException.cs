@@ -75,33 +75,6 @@ namespace Octokit
         {
             get { return ApiErrorMessageSafe ?? "API Rate Limit exceeded"; }
         }
-
-#if !NETFX_CORE
-        /// <summary>
-        /// Constructs an instance of RateLimitExceededException
-        /// </summary>
-        /// <param name="info">
-        /// The <see cref="SerializationInfo"/> that holds the
-        /// serialized object data about the exception being thrown.
-        /// </param>
-        /// <param name="context">
-        /// The <see cref="StreamingContext"/> that contains
-        /// contextual information about the source or destination.
-        /// </param>
-        protected RateLimitExceededException(SerializationInfo info, StreamingContext context)
-            : base(info, context)
-        {
-            _rateLimit = info.GetValue("RateLimit", typeof(RateLimit)) as RateLimit
-                         ?? new RateLimit(new Dictionary<string, string>());
-        }
-
-        [SecurityCritical]
-        public override void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            base.GetObjectData(info, context);
-
-            info.AddValue("RateLimit", _rateLimit);
-        }
-#endif
+        
     }
 }
